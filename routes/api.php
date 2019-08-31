@@ -13,9 +13,14 @@ use Illuminate\Http\Request;
 |
 */
 
+/** Allow OPTIONS request */
+Route::options('{all:.*}', function () {
+    return response()->json(null, 200);
+});
+
 Route::get('/', 'IndexController@index');
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+Route::middleware('auth:api')->get('/me', function (Request $request) {
     return $request->user();
 });
 
