@@ -12,6 +12,6 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        User::create(['name' => 'admin', 'email' => 'admin@gmail.com', 'password' => bcrypt('dlfjs')]);
+        User::create(['name' => 'admin', 'email' => 'admin@gmail.com', 'password' => bcrypt('admin')]);
     }
 }
