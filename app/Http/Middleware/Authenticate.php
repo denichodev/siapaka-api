@@ -15,10 +15,7 @@ class Authenticate extends Middleware
     protected function redirectTo($request)
     {
         if (! $request->expectsJson()) {
-            return response([
-                'name' => 'Unauth',
-                'version' => 0.1
-            ], 403);
+            return view('login');
         }
     }
 }
