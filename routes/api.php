@@ -35,3 +35,17 @@ $router->get('roles/{id}', [
     'middleware' => ['auth:api'],
 ]);
 
+$router->get('users', [
+    'uses' => 'UserController@index',
+    'middleware' => ['auth:api'],
+]);
+
+$router->post('users', [
+    'uses' => 'UserController@create',
+    'middleware' => ['auth:api'],
+])->middleware('scopes:create-user');;
+
+$router->post('login', [
+    'uses' => 'AuthController@login',
+]);
+
