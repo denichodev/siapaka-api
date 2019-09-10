@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use League\Fractal\Manager;
 use League\Fractal\Resource\Item;
-use League\Fractal\Resourece\Collection;
+use League\Fractal\Resource\Collection;
 
 class RestController extends Controller
 {

@@ -24,3 +24,14 @@ Route::middleware('auth:api')->get('/me', function (Request $request) {
     return $request->user();
 });
 
+// Roles
+$router->get('roles', [
+    'uses' => 'RoleController@index',
+    'middleware' => ['auth:api'],
+]);
+
+$router->get('roles/{id}', [
+    'uses' => 'RoleController@show',
+    'middleware' => ['auth:api'],
+]);
+
