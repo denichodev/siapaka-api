@@ -5,6 +5,25 @@ use App\Role;
 
 class RoleTableSeeder extends Seeder
 {
+    private $data = [
+        [
+            'id' => 'ADM',
+            'name' => 'Admin',
+        ],
+        [
+            'id' => 'KG',
+            'name' => 'Kepala Gudang',
+        ],
+        [
+            'id' => 'APT',
+            'name' => 'Apoteker',
+        ],
+        [
+            'id' => 'KAS',
+            'name' => 'Kasir',
+        ],
+    ];
+
     /**
      * Run the database seeds.
      *
@@ -12,9 +31,13 @@ class RoleTableSeeder extends Seeder
      */
     public function run()
     {
-        Role::create(['id' => 'ADM', 'name' => 'Admin']);
-        Role::create(['id' => 'KG', 'name' => 'Kepala Gudang']);
-        Role::create(['id' => 'APT', 'name' => 'Apoteker']);
-        Role::create(['id' => 'KAS', 'name' => 'Kasir']);
+        collect($this->data)->each(function ($data) {
+            if (is_null(Role::find($data['id']))) {
+                Role::create([
+                    'id' => $data['id'],
+                    'name' => $data['name'],
+                ]);
+            }
+        });
     }
 }
