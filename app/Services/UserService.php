@@ -23,6 +23,7 @@ class UserService
             'password' => bcrypt($data['password']),
             'email' => $data['email'],
             'role_id' => $data['role_id'],
+            'outlet_id' => $data['outlet_id'],
         ]);
 
         return $user;

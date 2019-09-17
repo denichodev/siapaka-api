@@ -12,6 +12,7 @@ class UsersTableSeeder extends Seeder
             'email' => 'admin@gmail.com',
             'password' => 'admin',
             'role_id' => 'ADM',
+            'outlet_id' => 1
         ]
     ];
 
@@ -29,7 +30,8 @@ class UsersTableSeeder extends Seeder
                     'name' => $data['name'],
                     'email' => $data['email'],
                     'password' => bcrypt($data['password']),
-                    'role_id' => $data['role_id']
+                    'role_id' => $data['role_id'],
+                    'outlet_id' => $data['outlet_id'],
                 ]);
             }
         });

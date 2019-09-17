@@ -31,6 +31,7 @@ class UserController extends RestController
             'password' => 'required',
             'passwordConf' => 'required|same:password',
             'roleId' => 'required',
+            'outletId' => 'required',
         ]);
         try {
             $user = DB::transaction(function () use ($request) {
@@ -39,6 +40,7 @@ class UserController extends RestController
                     'email' => $request->input('email'),
                     'password' => $request->input('password'),
                     'role_id' => $request->input('roleId'),
+                    'outlet_id' => $request->input('outletId'),
                 ]);
             });
 

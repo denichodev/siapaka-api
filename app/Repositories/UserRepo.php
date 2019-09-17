@@ -5,7 +5,7 @@ class UserRepo implements RepositoryInterface
 {
     public function get()
     {
-        return User::with('role')->get();
+        return User::with(['role', 'outlet'])->get();
     }
     public function find($id)
     {
