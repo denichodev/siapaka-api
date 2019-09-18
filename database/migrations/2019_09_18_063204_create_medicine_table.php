@@ -18,7 +18,7 @@ class CreateMedicineTable extends Migration
             $table->string('meds_type_id');
             $table->string('meds_category_id');
             $table->string('name');
-            $table->decimal('price', 16, 2);
+            $table->decimal('price', 8, 2);
             $table->string('factory');
             $table->integer('curr_stock');
             $table->integer('min_stock');

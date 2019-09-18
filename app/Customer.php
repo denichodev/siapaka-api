@@ -7,7 +7,7 @@ class Customer extends Model
     protected $table = 'customer';
     public $incrementing = false;
     protected $fillable = [
-        'phone_no',
+        'id',
         'name',
     ];
 
