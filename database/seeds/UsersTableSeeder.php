@@ -8,11 +8,19 @@ class UsersTableSeeder extends Seeder
     private $data = [
         [
             'id' => 1,
-            'name' => 'admin',
+            'name' => 'Pak Martin',
             'email' => 'admin@gmail.com',
-            'password' => 'admin',
+            'password' => 'adminsiapaka',
             'role_id' => 'ADM',
             'outlet_id' => 1
+        ],
+        [
+            'id' => 2,
+            'name' => 'Kepala Gudang',
+            'email' => 'kg@gmail.com',
+            'password' => 'kgsiapaka',
+            'role_id' => 'KG',
+            'outlet_id' => 2
         ]
     ];
 

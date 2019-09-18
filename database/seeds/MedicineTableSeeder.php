@@ -19,7 +19,7 @@ class MedicineTableSeeder extends Seeder
         [
             'id' => 2,
             'meds_type_id' => 'CAPSULE',
-            'meds_category_id' => 'FREE',
+            'meds_category_id' => 'POTENT',
             'name' => 'Paracetamol Kapsul 500mg',
             'price' => 3000,
             'factory' => 'PT. Kimia Farma',
