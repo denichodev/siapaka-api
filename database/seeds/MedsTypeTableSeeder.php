@@ -7,7 +7,7 @@ class MedsTypeTableSeeder extends Seeder
 {
     private $data = [
         [
-            'id' => 'TAB',
+            'id' => 'TABLET',
             'name' => 'Tablet',
         ],
         [

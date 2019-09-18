@@ -7,6 +7,7 @@ use App\Services\RoleService;
 use App\Services\UserService;
 use App\Repositories\RoleRepo;
 use App\Repositories\UserRepo;
+use Illuminate\Support\Facades\Schema;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -35,6 +36,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        // Somehow got error 1071, this should fix it.
+        Schema::defaultStringLength(191);
     }
 }
