@@ -7,6 +7,7 @@ class UserTransformer extends TransformerAbstract
 {
     protected $defaultIncludes = [
         'role',
+        'outlet',
     ];
 
     public function transform(User $user)
@@ -21,5 +22,10 @@ class UserTransformer extends TransformerAbstract
     public function includeRole(User $user)
     {
         return $this->item($user->role, new RoleTransformer);
+    }
+
+    public function includeOutlet(User $user)
+    {
+        return $this->item($user->outlet, new OutletTransformer);
     }
 }

@@ -29,7 +29,9 @@ class AuthServiceProvider extends ServiceProvider
         Passport::routes();
 
         Passport::tokensCan([
-            'create-user' => 'Create users',
+            'write-user' => 'Write user',
+            'read-user' => 'Read user',
+            'write-outlet' => 'Write outlet',
         ]);
     }
 }

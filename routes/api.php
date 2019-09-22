@@ -35,6 +35,7 @@ $router->get('roles/{id}', [
     'middleware' => ['auth:api'],
 ]);
 
+// Users
 $router->get('users', [
     'uses' => 'UserController@index',
     'middleware' => ['auth:api'],
@@ -43,9 +44,13 @@ $router->get('users', [
 $router->post('users', [
     'uses' => 'UserController@create',
     'middleware' => ['auth:api'],
-])->middleware('scopes:create-user');;
+])->middleware('scopes:write-user');;
 
 $router->post('login', [
     'uses' => 'AuthController@login',
 ]);
 
+// // Outlet
+$router->get('outlets', [
+    'uses' => 'OutletController@index',
+]);
