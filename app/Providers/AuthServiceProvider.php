@@ -32,6 +32,10 @@ class AuthServiceProvider extends ServiceProvider
             'write-user' => 'Write user',
             'read-user' => 'Read user',
             'write-outlet' => 'Write outlet',
+            'write-supplier' => 'Write supplier',
+            'read-supplier' => 'Read supplier',
+            'read-doctor' => 'Read doctor',
+            'write-doctor' => 'Write doctor',
         ]);
     }
 }

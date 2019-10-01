@@ -2,50 +2,50 @@
 
 namespace App\Services;
 
-use App\Outlet;
+use App\Doctor;
 
-class OutletService
+class DoctorService
 {
   public function get()
   {
-    return Outlet::get();
+    return Doctor::get();
   }
 
   public function create(array $data)
   {
-    $outlet = Outlet::create([
+    $doctor = Doctor::create([
       'name' => $data['name'],
       'address' => $data['address'],
       'phone_no' => $data['phone_no'],
     ]);
 
-    return $outlet;
+    return $doctor;
   }
 
   public function find($id)
   {
-    return Outlet::findOrFail($id);
+    return Doctor::findOrFail($id);
   }
 
   public function update($id, array $data)
   {
-      $outlet = $this->find($id);
+      $doctor = $this->find($id);
 
-      $outlet->update([
+      $doctor->update([
           'name' => $data['name'],
           'address' => $data['address'],
           'phone_no' => $data['phone_no'],
       ]);
 
-      return $outlet->refresh();
+      return $doctor->refresh();
   }
 
   public function delete($id)
   {
-    $outlet = $this->find($id);
+    $doctor = $this->find($id);
 
-    $outlet->delete();
+    $doctor->delete();
 
-    return $outlet->refresh();
+    return $doctor->refresh();
   }
 }

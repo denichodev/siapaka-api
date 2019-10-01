@@ -2,50 +2,50 @@
 
 namespace App\Services;
 
-use App\Outlet;
+use App\Supplier;
 
-class OutletService
+class SupplierService
 {
   public function get()
   {
-    return Outlet::get();
+    return Supplier::get();
   }
 
   public function create(array $data)
   {
-    $outlet = Outlet::create([
+    $supplier = Supplier::create([
       'name' => $data['name'],
       'address' => $data['address'],
       'phone_no' => $data['phone_no'],
     ]);
 
-    return $outlet;
+    return $supplier;
   }
 
   public function find($id)
   {
-    return Outlet::findOrFail($id);
+    return Supplier::findOrFail($id);
   }
 
   public function update($id, array $data)
   {
-      $outlet = $this->find($id);
+      $supplier = $this->find($id);
 
-      $outlet->update([
+      $supplier->update([
           'name' => $data['name'],
           'address' => $data['address'],
           'phone_no' => $data['phone_no'],
       ]);
 
-      return $outlet->refresh();
+      return $supplier->refresh();
   }
 
   public function delete($id)
   {
-    $outlet = $this->find($id);
+    $supplier = $this->find($id);
 
-    $outlet->delete();
+    $supplier->delete();
 
-    return $outlet->refresh();
+    return $supplier->refresh();
   }
 }

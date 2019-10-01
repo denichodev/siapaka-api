@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\OutletService;
-use App\Transformers\OutletTransformer;
+use App\Services\DoctorService;
+use App\Transformers\DoctorTransformer;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
-class OutletController extends RestController
+class DoctorController extends RestController
 {
-    protected $transformer_name = OutletTransformer::class;
+    protected $transformer_name = DoctorTransformer::class;
 
     protected $service;
 
@@ -19,7 +19,7 @@ class OutletController extends RestController
         'phoneNo' => 'required'
     ];
 
-    public function __construct(OutletService $service)
+    public function __construct(DoctorService $service)
     {
         parent::__construct();
         $this->service = $service;
@@ -35,7 +35,7 @@ class OutletController extends RestController
         try {
             return $this->sendItem($this->service->find($id));
         } catch (ModelNotFoundException $e) {
-            return $this->notFoundResponse('Outlet not found');
+            return $this->notFoundResponse('Doctor not found');
         }
     }
 
@@ -65,7 +65,7 @@ class OutletController extends RestController
                 'phone_no' => $request->input('phoneNo'),
             ]));
         } catch (ModelNotFoundException $e) {
-            return $this->notFoundResponse('Outlet not found');
+            return $this->notFoundResponse('Doctor not found');
         } catch (\Exception $e) {
             return $this->iseResponse($e->getMessage());
         }
@@ -76,7 +76,7 @@ class OutletController extends RestController
         try {
             return $this->sendItem($this->service->delete($id));
         } catch (ModelNotFoundException $e) {
-            return $this->notFoundResponse('Outlet not found');
+            return $this->notFoundResponse('Doctor not found');
         } catch (\Exception $e) {
             return $this->iseResponse($e->getMessage());
         }

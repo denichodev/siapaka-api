@@ -14,7 +14,7 @@ class OutletTransformer extends TransformerAbstract
       'id' => $outlet->id,
       'name' => $outlet->name,
       'address' => $outlet->address,
-      'phone_no' => $outlet->phone_no,
+      'phoneNo' => $outlet->phone_no,
     ];
   }
 }

@@ -14,7 +14,7 @@ class ProcurementTableSeeder extends Seeder
         ],
         [
             'id' => 2,
-            'supplier_id' => 2,
+            'supplier_id' => 1,
             'staff_id' => 2,
             'status' => 'VERIFIED',
         ],
@@ -34,7 +34,7 @@ class ProcurementTableSeeder extends Seeder
                     'id' => $data['id'],
                     'supplier_id' => $data['supplier_id'],
                     'staff_id' => $data['staff_id'],
-                    'date' => new DateTime(),
+                    'order_date' => new DateTime(),
                     'status' => $data['status']
                 ]);
             }

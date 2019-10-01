@@ -1,6 +1,8 @@
 <?php
 namespace App\Services;
 
+use App\Role;
+
 class RoleService
 {
     public function get()

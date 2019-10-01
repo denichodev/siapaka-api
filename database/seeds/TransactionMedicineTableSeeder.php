@@ -12,6 +12,30 @@ class TransactionMedicineTableSeeder extends Seeder
             'medicine_id' => 1,
             'qty' => 2,
         ],
+        [
+            'id' => 2,
+            'transaction_id' => 'R180919001',
+            'medicine_id' => 2,
+            'qty' => 2,
+        ],
+        [
+            'id' => 3,
+            'transaction_id' => 'R180919002',
+            'medicine_id' => 3,
+            'qty' => 2,
+        ],
+        [
+            'id' => 4,
+            'transaction_id' => 'R180919003',
+            'medicine_id' => 1,
+            'qty' => 1,
+        ],
+        [
+            'id' => 4,
+            'transaction_id' => 'T180919001',
+            'medicine_id' => 1,
+            'qty' => 1,
+        ],
     ];
 
 
