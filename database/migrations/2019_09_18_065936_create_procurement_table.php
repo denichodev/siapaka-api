@@ -17,7 +17,7 @@ class CreateProcurementTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('supplier_id');
             $table->unsignedInteger('staff_id');
-            $table->dateTime('date');
+            $table->dateTime('order_date');
             $table->string('status');
             $table->timestamps();
 

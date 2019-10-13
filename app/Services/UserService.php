@@ -1,19 +1,12 @@
 <?php
 namespace App\Services;
-use App\Repositories\RepositoryInterface;
 use App\User;
+
 class UserService
 {
-    protected $repo;
-
-    public function __construct(RepositoryInterface $repo)
-    {
-        $this->repo = $repo;
-    }
-
     public function get()
     {
-        return $this->repo->get();
+        return User::with(['role', 'outlet'])->get();
     }
 
     public function create(array $data)
@@ -31,7 +24,7 @@ class UserService
 
     public function find($id)
     {
-        return $this->repo->find($id);
+        return User::with(['role', 'outlet'])->findOrFail($id);
     }
 
     // public function update($id, array $data)
@@ -46,6 +39,8 @@ class UserService
 
     public function delete($id)
     {
-        return $this->repo->delete($id);
+        $model = $this->find($id);
+
+        return $model->delete();
     }
 }
