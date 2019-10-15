@@ -27,20 +27,36 @@ class UserService
         return User::with(['role', 'outlet'])->findOrFail($id);
     }
 
-    // public function update($id, array $data)
-    // {
-    //     $user = $this->find($id);
-    //     return $user->update([
-    //         'name' => $data['name'],
-    //         'full_name' => $data['full_name'],
-    //         'role_id' => $data['role_id'],
-    //     ]);
-    // }
+    public function update($id, array $data)
+    {
+        $user = $this->find($id);
+
+        if ($data['password'] != '') {
+            $user->update([
+                'name' => $data['name'],
+                'password' => bcrypt($data['password']),
+                'email' => $data['email'],
+                'role_id' => $data['role_id'],
+                'outlet_id' => $data['outlet_id'],
+            ]);
+        } else {
+            $user->update([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'role_id' => $data['role_id'],
+                'outlet_id' => $data['outlet_id'],
+            ]);
+        }
+
+        return $user->refresh();
+    }
 
     public function delete($id)
     {
-        $model = $this->find($id);
+        $user = $this->find($id);
 
-        return $model->delete();
+        $user->delete();
+
+        return $user->refresh();
     }
 }

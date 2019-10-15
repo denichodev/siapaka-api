@@ -41,9 +41,24 @@ $router->get('users', [
     'middleware' => ['auth:api', 'scopes:read-user'],
 ]);
 
+$router->get('users/{id}', [
+    'uses' => 'UserController@show',
+    'middleware' => ['auth:api', 'scopes:read-user'],
+]);
+
+$router->put('users/{id}', [
+    'uses' => 'UserController@update',
+    'middleware' => ['auth:api', 'scopes:write-user'],
+]);
+
 $router->post('users', [
     'uses' => 'UserController@create',
     'middleware' => ['auth:api', 'scopes:write-user'],
+]);
+
+$router->delete('users/{id}', [
+    'uses' => 'UserController@destroy',
+    'middleware' => ['auth:api', 'scopes:delete-user']
 ]);
 
 $router->post('login', [
@@ -64,25 +79,25 @@ $router->post('outlets', [
     'middleware' => ['auth:api', 'scopes:write-outlet']
 ]);
 
-$router->post('outlets/{id}', [
+$router->put('outlets/{id}', [
     'uses' => 'OutletController@update',
     'middleware' => ['auth:api', 'scopes:write-outlet']
 ]);
 
 $router->delete('outlets/{id}', [
     'uses' => 'OutletController@destroy',
-    'middleware' => ['auth:api', 'scopes:write-outlet']
+    'middleware' => ['auth:api', 'scopes:delete-outlet']
 ]);
 
 // Supplier
 $router->get('suppliers', [
     'uses' => 'SupplierController@index',
-    'middleware' => ['auth:api']
+    'middleware' => ['auth:api', 'scopes:read-supplier']
 ]);
 
 $router->get('suppliers/{id}', [
     'uses' => 'SupplierController@show',
-    'middleware' => ['auth:api']
+    'middleware' => ['auth:api', 'scopes:read-supplier']
 ]);
 
 $router->post('suppliers', [
@@ -90,38 +105,38 @@ $router->post('suppliers', [
     'middleware' => ['auth:api', 'scopes:write-supplier']
 ]);
 
-$router->post('suppliers/{id}', [
+$router->put('suppliers/{id}', [
     'uses' => 'SupplierController@update',
     'middleware' => ['auth:api', 'scopes:write-supplier']
 ]);
 
 $router->delete('suppliers/{id}', [
     'uses' => 'SupplierController@destroy',
-    'middleware' => ['auth:api', 'scopes:write-supplier']
+    'middleware' => ['auth:api', 'scopes:delete-supplier']
 ]);
 
 // Doctor
 $router->get('doctors', [
     'uses' => 'DoctorController@index',
-    'middleware' => ['auth:api']
+    'middleware' => ['auth:api', 'scopes:read-doctor']
 ]);
 
 $router->get('doctors/{id}', [
     'uses' => 'DoctorController@show',
-    'middleware' => ['auth:api']
+    'middleware' => ['auth:api', 'scopes:read-doctor']
 ]);
 
 $router->post('doctors', [
     'uses' => 'DoctorController@create',
-    'middleware' => ['auth:api', 'scopes:write-supplier']
+    'middleware' => ['auth:api', 'scopes:write-doctor']
 ]);
 
-$router->post('doctors/{id}', [
+$router->put('doctors/{id}', [
     'uses' => 'DoctorController@update',
-    'middleware' => ['auth:api', 'scopes:write-supplier']
+    'middleware' => ['auth:api', 'scopes:write-doctor']
 ]);
 
 $router->delete('doctors/{id}', [
     'uses' => 'DoctorController@destroy',
-    'middleware' => ['auth:api', 'scopes:write-supplier']
+    'middleware' => ['auth:api', 'scopes:delete-doctor']
 ]);

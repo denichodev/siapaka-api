@@ -31,11 +31,18 @@ class AuthServiceProvider extends ServiceProvider
         Passport::tokensCan([
             'write-user' => 'Write user',
             'read-user' => 'Read user',
+            'delete-user' => 'Delete user',
+
             'write-outlet' => 'Write outlet',
+            'delete-outlet' => 'Delete outlet',
+
             'write-supplier' => 'Write supplier',
             'read-supplier' => 'Read supplier',
+            'delete-supplier' => 'Delete supplier',
+
             'read-doctor' => 'Read doctor',
             'write-doctor' => 'Write doctor',
+            'delete-doctor' => 'Delete doctor',
         ]);
     }
 }

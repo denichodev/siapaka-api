@@ -12,6 +12,22 @@ class UserController extends RestController
 
     protected $service;
 
+    protected static $rule = [
+        'name' => 'required',
+        'email' => 'required',
+        'password' => 'required',
+        'passwordConf' => 'required|same:password',
+        'roleId' => 'required',
+        'outletId' => 'required',
+    ];
+
+    protected static $updateRule = [
+        'name' => 'required',
+        'email' => 'required',
+        'roleId' => 'required',
+        'outletId' => 'required',
+    ];
+
     public function __construct(UserService $service)
     {
         parent::__construct();
@@ -25,14 +41,7 @@ class UserController extends RestController
 
     public function create(Request $request)
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required',
-            'password' => 'required',
-            'passwordConf' => 'required|same:password',
-            'roleId' => 'required',
-            'outletId' => 'required',
-        ]);
+        $this->validate($request, self::$rule);
         try {
             $user = DB::transaction(function () use ($request) {
                 return $this->service->create([
@@ -58,39 +67,34 @@ class UserController extends RestController
             return $this->notFoundResponse('User not found');
         }
     }
+    
+    public function update(Request $request, $id)
+    {
+        $this->validate($request, self::$updateRule);
 
-    // public function update(Request $request, $id)
-    // {
-    //     $this->validate($request, [
-    //         'name' => 'required',
-    //         'fullName' => 'required',
-    //         'roleId' => 'required',
-    //     ]);
-    //     try {
-    //         DB::transaction(function () use ($request, $id) {
-    //             $this->service->update($id, [
-    //                 'name' => $request->input('name'),
-    //                 'full_name' => $request->input('fullName'),
-    //                 'role_id' => $request->input('roleId'),
-    //             ]);
-    //         });
-    //         return $this->sendItem($this->service->find($id));
-    //     } catch (ModelNotFoundException $e) {
-    //         return $this->notFoundResponse('User not found');
-    //     } catch (\Exception $e) {
-    //         return $this->iseResponse($e->getMessage());
-    //     }
-    // }
+        try {
+            return $this->sendItem($this->service->update($id, [
+                'name' => $request->input('name'),
+                'email' => $request->input('email'),
+                'password' => $request->input('password'),
+                'role_id' => $request->input('roleId'),
+                'outlet_id' => $request->input('outletId'),
+            ]));
+        } catch (ModelNotFoundException $e) {
+            return $this->notFoundResponse('User not found');
+        } catch (\Exception $e) {
+            return $this->iseResponse($e->getMessage());
+        }
+    }
 
-    // public function destroy($id)
-    // {
-    //     try {
-    //         DB::transaction(function () use ($id) {
-    //             $this->service->delete($id);
-    //         });
-    //         return response()->json();
-    //     } catch (ModelNotFoundException $e) {
-    //         return $this->notFoundResponse('User not found');
-    //     }
-    // }
+    public function destroy($id)
+    {
+        try {
+            return $this->sendItem($this->service->delete($id));
+        } catch (ModelNotFoundException $e) {
+            return $this->notFoundResponse('User not found');
+        } catch (\Exception $e) {
+            return $this->iseResponse($e->getMessage());
+        }
+    }
 }

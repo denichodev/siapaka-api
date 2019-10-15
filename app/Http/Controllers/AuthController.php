@@ -33,8 +33,21 @@ class AuthController extends RestController
 
       if ($user->role_id == 'ADM') {
         $success['token'] = $user->createToken('siapaka-token', ['*'])->accessToken;
-      } else {
-        $success['token'] = $user->createToken('siapaka-token')->accessToken;
+      } else if ($user->role_id == 'KG') {
+        $success['token'] = $user->createToken('siapaka-token', [
+          'read-supplier',
+          'read-doctor'
+        ])->accessToken;
+      } else if ($user->role_id == 'KAS') {
+        $success['token'] = $user->createToken('siapaka-token', [
+          'read-supplier',
+          'read-doctor'
+        ])->accessToken;
+      } else if ($user->role_id == 'APT') {
+        $success['token'] = $user->createToken('siapaka-token', [
+          'read-supplier',
+          'read-doctor'
+        ])->accessToken;
       }
 
 
