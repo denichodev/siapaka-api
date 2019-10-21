@@ -45,6 +45,7 @@ class AuthServiceProvider extends ServiceProvider
             'delete-doctor' => 'Delete doctor',
 
             'write-medicine' => 'Write medicine',
+            'delete-medicine' => 'Delete medicine',
         ]);
     }
 }
