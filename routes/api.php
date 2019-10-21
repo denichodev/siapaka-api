@@ -140,3 +140,20 @@ $router->delete('doctors/{id}', [
     'uses' => 'DoctorController@destroy',
     'middleware' => ['auth:api', 'scopes:delete-doctor']
 ]);
+
+// MedsType & Categoy
+$router->get('medstype', [
+    'uses' => 'MedsTypeController@index',
+    'middleware' => ['auth:api']
+]);
+
+$router->get('medscategory', [
+    'uses' => 'MedsCategoryController@index',
+    'middleware' => ['auth:api']
+]);
+
+// Medicine
+$router->get('medicines', [
+    'uses' => 'MedicineController@index',
+]);
+

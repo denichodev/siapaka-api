@@ -17,12 +17,12 @@ class Medicine extends Model
       'min_stock',
     ];
 
-    public function medsType()
+    public function meds_type()
     {
         return $this->belongsTo(MedsType::class);
     }
 
-    public function medsCategory()
+    public function meds_category()
     {
         return $this->belongsTo(MedsCategory::class);
     }
