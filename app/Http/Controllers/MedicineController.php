@@ -33,6 +33,11 @@ class MedicineController extends RestController
         return $this->sendCollection($this->service->get());
     }
 
+    public function indexMinimal()
+    {
+        return $this->sendCollection($this->service->getMinimal());
+    }
+
     public function create(Request $request)
     {
         $this->validate($request, self::$rule);

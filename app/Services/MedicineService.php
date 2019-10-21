@@ -11,6 +11,11 @@ class MedicineService
     return Medicine::with(['meds_type', 'meds_category'])->get();
   }
 
+  public function getMinimal()
+  {
+    return Medicine::whereRaw('medicine.curr_stock < medicine.min_stock')->get();
+  }
+
   public function create(array $data)
   {
     $medicine = Medicine::create([

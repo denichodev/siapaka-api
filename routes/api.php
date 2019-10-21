@@ -157,6 +157,10 @@ $router->get('medicines', [
     'uses' => 'MedicineController@index',
 ]);
 
+$router->get('medicines/minimal', [
+    'uses' => 'MedicineController@indexMinimal',
+]);
+
 $router->get('medicines/{id}', [
     'uses' => 'MedicineController@show',
 ]);
