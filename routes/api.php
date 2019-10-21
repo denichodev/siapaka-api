@@ -157,3 +157,22 @@ $router->get('medicines', [
     'uses' => 'MedicineController@index',
 ]);
 
+$router->get('medicines/{id}', [
+    'uses' => 'MedicineController@show',
+]);
+
+$router->post('medicines', [
+    'uses' => 'MedicineController@create',
+    'middleware' => ['auth:api', 'scopes:write-medicine'],
+]);
+
+$router->put('medicines/{id}', [
+    'uses' => 'MedicineController@update',
+    'middleware' => ['auth:api', 'scopes:write-medicine'],
+]);
+
+$router->delete('medicines/{id}', [
+    'uses' => 'MedicineController@destroy',
+    'middleware' => ['auth:api', 'scopes:delete-medicine'],
+]);
+

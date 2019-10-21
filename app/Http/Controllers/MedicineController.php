@@ -18,16 +18,9 @@ class MedicineController extends RestController
         'medsTypeId' => 'required',
         'medsCategoryId' => 'required',
         'factory' => 'required',
-        'cur_stock' => 'required',
-        'min_stock' => 'required',
+        'currStock' => 'required',
+        'minStock' => 'required',
     ];
-
-    // protected static $updateRule = [
-    //     'name' => 'required',
-    //     'email' => 'required',
-    //     'roleId' => 'required',
-    //     'outletId' => 'required',
-    // ];
 
     public function __construct(MedicineService $service)
     {
@@ -40,62 +33,66 @@ class MedicineController extends RestController
         return $this->sendCollection($this->service->get());
     }
 
-    // public function create(Request $request)
-    // {
-    //     $this->validate($request, self::$rule);
-    //     try {
-    //         $user = DB::transaction(function () use ($request) {
-    //             return $this->service->create([
-    //                 'name' => $request->input('name'),
-    //                 'email' => $request->input('email'),
-    //                 'password' => $request->input('password'),
-    //                 'role_id' => $request->input('roleId'),
-    //                 'outlet_id' => $request->input('outletId'),
-    //             ]);
-    //         });
+    public function create(Request $request)
+    {
+        $this->validate($request, self::$rule);
+        try {
+            $medicine = DB::transaction(function () use ($request) {
+                return $this->service->create([
+                    'name' => $request->input('name'),
+                    'price' => $request->input('price'),
+                    'meds_type_id' => $request->input('medsTypeId'),
+                    'meds_category_id' => $request->input('medsCategoryId'),
+                    'factory' => $request->input('factory'),
+                    'curr_stock' => $request->input('currStock'),
+                    'min_stock' => $request->input('minStock'),
+                ]);
+            });
 
-    //         return $this->sendItem($user);
-    //     } catch (\Exception $e) {
-    //         return $this->iseResponse($e->getMessage());
-    //     }
-    // }
+            return $this->sendItem($medicine);
+        } catch (\Exception $e) {
+            return $this->iseResponse($e->getMessage());
+        }
+    }
 
-    // public function show($id)
-    // {
-    //     try {
-    //         return $this->sendItem($this->service->find($id));
-    //     } catch (ModelNotFoundException $e) {
-    //         return $this->notFoundResponse('User not found');
-    //     }
-    // }
+    public function show($id)
+    {
+        try {
+            return $this->sendItem($this->service->find($id));
+        } catch (ModelNotFoundException $e) {
+            return $this->notFoundResponse('Medicine not found');
+        }
+    }
     
-    // public function update(Request $request, $id)
-    // {
-    //     $this->validate($request, self::$updateRule);
+    public function update(Request $request, $id)
+    {
+        $this->validate($request, self::$rule);
 
-    //     try {
-    //         return $this->sendItem($this->service->update($id, [
-    //             'name' => $request->input('name'),
-    //             'email' => $request->input('email'),
-    //             'password' => $request->input('password'),
-    //             'role_id' => $request->input('roleId'),
-    //             'outlet_id' => $request->input('outletId'),
-    //         ]));
-    //     } catch (ModelNotFoundException $e) {
-    //         return $this->notFoundResponse('User not found');
-    //     } catch (\Exception $e) {
-    //         return $this->iseResponse($e->getMessage());
-    //     }
-    // }
+        try {
+            return $this->sendItem($this->service->update($id, [
+                'name' => $request->input('name'),
+                    'price' => $request->input('price'),
+                    'meds_type_id' => $request->input('medsTypeId'),
+                    'meds_category_id' => $request->input('medsCategoryId'),
+                    'factory' => $request->input('factory'),
+                    'curr_stock' => $request->input('currStock'),
+                    'min_stock' => $request->input('minStock'),
+            ]));
+        } catch (ModelNotFoundException $e) {
+            return $this->notFoundResponse('Medicine not found');
+        } catch (\Exception $e) {
+            return $this->iseResponse($e->getMessage());
+        }
+    }
 
-    // public function destroy($id)
-    // {
-    //     try {
-    //         return $this->sendItem($this->service->delete($id));
-    //     } catch (ModelNotFoundException $e) {
-    //         return $this->notFoundResponse('User not found');
-    //     } catch (\Exception $e) {
-    //         return $this->iseResponse($e->getMessage());
-    //     }
-    // }
+    public function destroy($id)
+    {
+        try {
+            return $this->sendItem($this->service->delete($id));
+        } catch (ModelNotFoundException $e) {
+            return $this->notFoundResponse('Medicine not found');
+        } catch (\Exception $e) {
+            return $this->iseResponse($e->getMessage());
+        }
+    }
 }
