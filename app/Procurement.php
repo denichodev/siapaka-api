@@ -4,6 +4,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Procurement extends Model
 {
+    protected $with = ['users', 'supplier'];
+    
     protected $table = 'procurement';
 
     protected $fillable = [
@@ -23,8 +25,8 @@ class Procurement extends Model
       return $this->belongsTo(Supplier::class);
     }
 
-    public function staff()
+    public function users()
     {
-      return $this->belongsTo(Staff::class);
+      return $this->belongsTo(User::class, 'staff_id', 'id');
     }
 }

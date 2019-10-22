@@ -180,3 +180,8 @@ $router->delete('medicines/{id}', [
     'middleware' => ['auth:api', 'scopes:delete-medicine'],
 ]);
 
+// Procurements
+$router->get('procurements', [
+    'uses' => 'ProcurementController@index',
+    'middleware' => ['auth:api', 'scopes:read-procurement'],
+]);
