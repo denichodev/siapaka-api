@@ -185,3 +185,13 @@ $router->get('procurements', [
     'uses' => 'ProcurementController@index',
     'middleware' => ['auth:api', 'scopes:read-procurement'],
 ]);
+
+$router->post('procurements', [
+    'uses' => 'ProcurementController@create',
+    'middleware' => ['auth:api', 'scopes:write-procurement'],
+]);
+
+$router->delete('procurements/{id}', [
+    'uses' => 'ProcurementController@destroy',
+    'middleware' => ['auth:api', 'scopes:delete-procurement'],
+]);

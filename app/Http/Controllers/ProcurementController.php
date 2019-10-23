@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 use App\Services\ProcurementService;
+
 use App\Transformers\ProcurementTransformer;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -12,15 +13,12 @@ class ProcurementController extends RestController
 
     protected $service;
 
-    // protected static $rule = [
-    //     'name' => 'required',
-    //     'price' => 'required',
-    //     'medsTypeId' => 'required',
-    //     'medsCategoryId' => 'required',
-    //     'factory' => 'required',
-    //     'currStock' => 'required',
-    //     'minStock' => 'required',
-    // ];
+    protected static $rule = [
+        'supplierId' => 'required',
+        'staffId' => 'required',
+        'orderDate' => 'required',
+        'medicines' => 'required',
+    ];
 
     public function __construct(ProcurementService $service)
     {
@@ -38,27 +36,25 @@ class ProcurementController extends RestController
     //     return $this->sendCollection($this->service->getMinimal());
     // }
 
-    // public function create(Request $request)
-    // {
-    //     $this->validate($request, self::$rule);
-    //     try {
-    //         $medicine = DB::transaction(function () use ($request) {
-    //             return $this->service->create([
-    //                 'name' => $request->input('name'),
-    //                 'price' => $request->input('price'),
-    //                 'meds_type_id' => $request->input('medsTypeId'),
-    //                 'meds_category_id' => $request->input('medsCategoryId'),
-    //                 'factory' => $request->input('factory'),
-    //                 'curr_stock' => $request->input('currStock'),
-    //                 'min_stock' => $request->input('minStock'),
-    //             ]);
-    //         });
+    public function create(Request $request)
+    {
+        $this->validate($request, self::$rule);
+        try {
+            $procurement = DB::transaction(function () use ($request) {
+                return $this->service->create([
+                    'supplier_id' => $request->input('supplierId'),
+                    'staff_id' => $request->input('staffId'),
+                    'order_date' => $request->input('orderDate'),
+                    'medicines' => $request->input('medicines'),
+                    'status' => 'PROCESS',
+                ]);
+            });
 
-    //         return $this->sendItem($medicine);
-    //     } catch (\Exception $e) {
-    //         return $this->iseResponse($e->getMessage());
-    //     }
-    // }
+            return $this->sendItem($procurement);
+        } catch (\Exception $e) {
+            return $this->iseResponse($e->getMessage());
+        }
+    }
 
     // public function show($id)
     // {
@@ -90,14 +86,14 @@ class ProcurementController extends RestController
     //     }
     // }
 
-    // public function destroy($id)
-    // {
-    //     try {
-    //         return $this->sendItem($this->service->delete($id));
-    //     } catch (ModelNotFoundException $e) {
-    //         return $this->notFoundResponse('Medicine not found');
-    //     } catch (\Exception $e) {
-    //         return $this->iseResponse($e->getMessage());
-    //     }
-    // }
+    public function destroy($id)
+    {
+        try {
+            return $this->sendItem($this->service->delete($id));
+        } catch (ModelNotFoundException $e) {
+            return $this->notFoundResponse('Procurement not found');
+        } catch (\Exception $e) {
+            return $this->iseResponse($e->getMessage());
+        }
+    }
 }
