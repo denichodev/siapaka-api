@@ -186,6 +186,11 @@ $router->get('procurements', [
     'middleware' => ['auth:api', 'scopes:read-procurement'],
 ]);
 
+$router->get('procurements/{id}', [
+    'uses' => 'ProcurementController@show',
+    'middleware' => ['auth:api', 'scopes:read-procurement'],
+]);
+
 $router->post('procurements', [
     'uses' => 'ProcurementController@create',
     'middleware' => ['auth:api', 'scopes:write-procurement'],

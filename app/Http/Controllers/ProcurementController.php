@@ -56,14 +56,14 @@ class ProcurementController extends RestController
         }
     }
 
-    // public function show($id)
-    // {
-    //     try {
-    //         return $this->sendItem($this->service->find($id));
-    //     } catch (ModelNotFoundException $e) {
-    //         return $this->notFoundResponse('Medicine not found');
-    //     }
-    // }
+    public function show($id)
+    {
+        try {
+            return $this->sendItem($this->service->find($id));
+        } catch (ModelNotFoundException $e) {
+            return $this->notFoundResponse('Procurement not found');
+        }
+    }
     
     // public function update(Request $request, $id)
     // {
