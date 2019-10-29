@@ -20,6 +20,10 @@ class ProcurementController extends RestController
         'medicines' => 'required',
     ];
 
+    protected static $updateRule = [
+        'medicines' => 'required',
+    ];
+
     public function __construct(ProcurementService $service)
     {
         parent::__construct();
@@ -65,26 +69,35 @@ class ProcurementController extends RestController
         }
     }
     
-    // public function update(Request $request, $id)
-    // {
-    //     $this->validate($request, self::$rule);
+    public function verify(Request $request, $id)
+    {
+        $this->validate($request, self::$updateRule);
 
-    //     try {
-    //         return $this->sendItem($this->service->update($id, [
-    //             'name' => $request->input('name'),
-    //                 'price' => $request->input('price'),
-    //                 'meds_type_id' => $request->input('medsTypeId'),
-    //                 'meds_category_id' => $request->input('medsCategoryId'),
-    //                 'factory' => $request->input('factory'),
-    //                 'curr_stock' => $request->input('currStock'),
-    //                 'min_stock' => $request->input('minStock'),
-    //         ]));
-    //     } catch (ModelNotFoundException $e) {
-    //         return $this->notFoundResponse('Medicine not found');
-    //     } catch (\Exception $e) {
-    //         return $this->iseResponse($e->getMessage());
-    //     }
-    // }
+        try {
+            return $this->service->verify($id, [
+                'medicines' => $request->input('medicines'),
+                'status' => 'VERIFIED'
+            ]);
+        } catch (ModelNotFoundException $e) {
+            return $this->notFoundResponse('Procurement not found');
+        } catch (\Exception $e) {
+            return $this->iseResponse($e->getMessage());
+        }
+    }
+
+    public function decline(Request $request, $id)
+    {
+        try {
+            return $this->service->decline($id, [
+                'status' => 'DECLINED'
+            ]);
+        } catch (ModelNotFoundException $e) {
+            return $this->notFoundResponse('Procurement not found');
+        } catch (\Exception $e) {
+            return $this->iseResponse($e->getMessage());
+        }
+    }
+
 
     public function destroy($id)
     {

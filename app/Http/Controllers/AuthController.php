@@ -57,6 +57,7 @@ class AuthController extends RestController
           'read-procurement',
           'write-procurement',
           'delete-procurement',
+          'update-procurement',
         ])->accessToken;
       }
 

@@ -200,3 +200,24 @@ $router->delete('procurements/{id}', [
     'uses' => 'ProcurementController@destroy',
     'middleware' => ['auth:api', 'scopes:delete-procurement'],
 ]);
+
+$router->put('procurements/verify/{id}', [
+    'uses' => 'ProcurementController@verify',
+    'middleware' => ['auth:api', 'scopes:update-procurement'],
+]);
+
+$router->put('procurements/decline/{id}', [
+    'uses' => 'ProcurementController@decline',
+    'middleware' => ['auth:api', 'scopes:update-procurement'],
+]);
+
+// ProcurementMedicines
+$router->delete('procurementmedicines/{id}', [
+    'uses' => 'ProcurementMedicineController@destroy',
+    'middleware' => ['auth:api', 'scopes:delete-procurement'],
+]);
+
+$router->delete('unverifiedmedicines/{id}', [
+    'uses' => 'UnverifiedMedicineController@destroy',
+    'middleware' => ['auth:api', 'scopes:delete-procurement'],
+]);
