@@ -201,6 +201,11 @@ $router->delete('procurements/{id}', [
     'middleware' => ['auth:api', 'scopes:delete-procurement'],
 ]);
 
+$router->put('procurements/retrieve/{id}', [
+    'uses' => 'ProcurementController@retrieve',
+    'middleware' => ['auth:api', 'scopes:retrieve-procurement'],
+]);
+
 $router->put('procurements/verify/{id}', [
     'uses' => 'ProcurementController@verify',
     'middleware' => ['auth:api', 'scopes:update-procurement'],

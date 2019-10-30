@@ -40,6 +40,6 @@ class Procurement extends Model
 
     public function unverified_medicines()
     {
-      return $this->hasMany(UnverifiedMedicine::class);
+      return $this->hasMany(UnverifiedMedicine::class, 'procurement_id');
     }
 }

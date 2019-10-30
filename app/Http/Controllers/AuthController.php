@@ -43,6 +43,7 @@ class AuthController extends RestController
           'read-procurement',
           'write-procurement',
           'delete-procurement',
+          'retrieve-procurement',
         ])->accessToken;
       } else if ($user->role_id == 'KAS') {
         $success['token'] = $user->createToken('siapaka-token', [

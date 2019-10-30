@@ -51,6 +51,7 @@ class AuthServiceProvider extends ServiceProvider
             'write-procurement' => 'Write procurement',
             'delete-procurement' => 'Delete procurement',
             'update-procurement' => 'Update procurement',
+            'retrieve-procurement' => 'Retrieve procurement',
         ]);
     }
 }

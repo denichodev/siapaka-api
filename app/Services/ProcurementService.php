@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Procurement;
+use App\Medicine;
 use App\ProcurementMedicine;
 use App\UnverifiedMedicine;
 use App\Services\ProcurementMedicineService;
@@ -13,7 +14,7 @@ class ProcurementService
 {
   public function get()
   {
-    return Procurement::get();
+    return Procurement::with('unverified_medicines')->get();
   }
 
   public function create(array $data)
@@ -55,7 +56,7 @@ class ProcurementService
 
   public function find($id)
   {
-    return Procurement::findOrFail($id);
+    return Procurement::with(['unverified_medicines', 'medicines', 'medicines.medicine'])->findOrFail($id);
   }
 
   public function verify($id, array $data)
@@ -107,6 +108,87 @@ class ProcurementService
       }
 
       return $procurement->refresh();
+  }
+
+  public function retrieve($id)
+  {
+    $procurement = $this->find($id);
+
+    if ($procurement->status !== 'VERIFIED') {
+      return $procurement->refresh();
+    }
+
+    $procurement->update([
+      'status' => 'DONE',
+    ]);
+
+    $procurement->unverified_medicines->each(function($item) {
+      $sumMultiplier = 0;
+
+      if ($item['meds_type_id'] === 'TABLET') {
+        if ($item['qty_type'] === 'CARTON') {
+          $sumMultiplier = 1000;
+        } else {
+          $sumMultiplier = 100;
+        }
+      } else if ($item['meds_type_id'] === 'SYRUP') {
+        if ($item['qty_type'] === 'CARTON') {
+          $sumMultiplier = 100;
+        } else {
+          $sumMultiplier = 10;
+        }
+      } else {
+        if ($item['qty_type'] === 'CARTON') {
+          $sumMultiplier = 10000;
+        } else {
+          $sumMultiplier = 1000;
+        }
+      };
+
+      Medicine::create([
+        'name' => $item['name'],
+        'price' => $item['price'],
+        'meds_type_id' => $item['meds_type_id'],
+        'meds_category_id' => $item['meds_category_id'],
+        'factory' => $item['factory'],
+        'curr_stock' => $item['qty'] * $sumMultiplier,
+        'min_stock' => $item['qty'] * $sumMultiplier,
+      ]);
+    });
+
+    $procurement->medicines->each(function($item) {
+      $sumMultiplier = 0;
+
+      if ($item['meds_type_id'] === 'TABLET') {
+        if ($item['qty_type'] === 'CARTON') {
+          $sumMultiplier = 1000;
+        } else {
+          $sumMultiplier = 100;
+        }
+      } else if ($item['meds_type_id'] === 'SYRUP') {
+        if ($item['qty_type'] === 'CARTON') {
+          $sumMultiplier = 100;
+        } else {
+          $sumMultiplier = 10;
+        }
+      } else {
+        if ($item['qty_type'] === 'CARTON') {
+          $sumMultiplier = 10000;
+        } else {
+          $sumMultiplier = 1000;
+        }
+      };
+
+      $medicine = $item->medicine()->get()->first();
+
+      $oldMedicine = Medicine::with(['meds_type', 'meds_category'])->findOrFail($medicine->id);
+
+      $oldMedicine->update([
+        'curr_stock' => ($item['qty'] * $sumMultiplier) + $oldMedicine->curr_stock,
+      ]);
+    });
+
+    return $procurement->refresh();
   }
 
   public function decline($id, array $data)

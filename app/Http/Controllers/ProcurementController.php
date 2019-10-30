@@ -85,6 +85,17 @@ class ProcurementController extends RestController
         }
     }
 
+    public function retrieve(Request $request, $id)
+    {
+        try {
+            return $this->service->retrieve($id);
+        } catch (ModelNotFoundException $e) {
+            return $this->notFoundResponse('Procurement not found');
+        } catch (\Exception $e) {
+            return $this->iseResponse($e->getMessage());
+        }
+    }
+
     public function decline(Request $request, $id)
     {
         try {
