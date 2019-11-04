@@ -18,7 +18,7 @@ class CreateTransactionMedicineTable extends Migration
             $table->string('transaction_id');
             $table->unsignedInteger('medicine_id');
             $table->integer('qty');
-            $table->string('instructions')->default('');
+            $table->string('instructions')->nullable()->default('');
             $table->timestamps();
             $table->softDeletes();
 

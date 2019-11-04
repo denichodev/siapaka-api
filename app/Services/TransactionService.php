@@ -20,7 +20,7 @@ class TransactionService
 
     public function create(array $data)
     {
-        $customer = Customer::firstOrCreate([
+        $customer = Customer::firstOrNew([
             'id' => $data['customer_id'],
             'name' => $data['name'],
         ]);
