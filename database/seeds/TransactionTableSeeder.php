@@ -22,7 +22,7 @@ class TransactionTableSeeder extends Seeder
             'doctor_id' => 1,
             'subtotal' => 30000,
             'tax' => 3000,
-            'pay_amt' => 30000
+            'pay_amt' => NULL
         ],
         [
             'id' => 'R180919003',

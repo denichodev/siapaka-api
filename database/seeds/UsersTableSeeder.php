@@ -21,6 +21,22 @@ class UsersTableSeeder extends Seeder
             'password' => 'kgsiapaka',
             'role_id' => 'KG',
             'outlet_id' => 2
+        ],
+        [
+            'id' => 3,
+            'name' => 'Apoteker ',
+            'email' => 'apoteker@gmail.com',
+            'password' => 'aptsiapaka',
+            'role_id' => 'APT',
+            'outlet_id' => 2
+        ],
+        [
+            'id' => 4,
+            'name' => 'Kasir',
+            'email' => 'kasir@gmail.com',
+            'password' => 'kassiapaka',
+            'role_id' => 'KAS',
+            'outlet_id' => 2
         ]
     ];
 

@@ -1,38 +1,42 @@
 <?php
+
 namespace App;
+
 use Illuminate\Database\Eloquent\Model;
 
 class Transaction extends Model
 {
-    protected $table = 'transaction';
+  public $incrementing = false;
+  protected $with = ['users', 'customer', 'doctor'];
+  protected $table = 'transaction';
 
-    protected $fillable = [
-      'id',
-      'staff_id',
-      'customer_phone_no',
-      'doctor_id',
-      'date',
-      'subtotal',
-      'tax',
-      'pay_amt',
-    ];
+  protected $fillable = [
+    'id',
+    'staff_id',
+    'customer_id',
+    'doctor_id',
+    'date',
+    'subtotal',
+    'tax',
+    'pay_amt',
+  ];
 
-    protected $casts = [
-      'date' => 'datetime',
-    ];
+  protected $casts = [
+    'date' => 'datetime',
+  ];
 
-    public function customer()
-    {
-      return $this->belongsTo(Customer::class);
-    }
+  public function customer()
+  {
+    return $this->belongsTo(Customer::class);
+  }
 
-    public function staff()
-    {
-      return $this->belongsTo(Staff::class);
-    }
+  public function users()
+  {
+    return $this->belongsTo(User::class, 'staff_id', 'id');
+  }
 
-    public function doctor()
-    {
-      return $this->belongsTo(Doctor::class);
-    }
+  public function doctor()
+  {
+    return $this->belongsTo(Doctor::class);
+  }
 }

@@ -21,7 +21,7 @@ class CreateTransactionTable extends Migration
             $table->dateTime('date');
             $table->decimal('subtotal', 8, 2);
             $table->decimal('tax', 8, 2);
-            $table->decimal('pay_amt', 8, 2);
+            $table->decimal('pay_amt', 8, 2)->nullable();
             $table->timestamps();
             $table->softDeletes();
 

@@ -226,3 +226,14 @@ $router->delete('unverifiedmedicines/{id}', [
     'uses' => 'UnverifiedMedicineController@destroy',
     'middleware' => ['auth:api', 'scopes:delete-procurement'],
 ]);
+
+// Transactions
+$router->get('transactions', [
+    'uses' => 'TransactionController@index',
+    'middleware' => ['auth:api', 'scopes:read-transaction'],
+]);
+
+$router->post('transactions', [
+    'uses' => 'TransactionController@create',
+    'middleware' => ['auth:api', 'scopes:write-transaction'],
+]);
