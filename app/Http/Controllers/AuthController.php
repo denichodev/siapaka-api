@@ -61,7 +61,8 @@ class AuthController extends RestController
           'delete-procurement',
           'update-procurement',
           'read-transaction',
-          'write-transaction'
+          'write-transaction',
+          'delete-transaction'
         ])->accessToken;
       }
 

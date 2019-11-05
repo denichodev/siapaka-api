@@ -125,20 +125,22 @@ class ProcurementService
     $procurement->unverified_medicines->each(function($item) {
       $sumMultiplier = 0;
 
-      if ($item['meds_type_id'] === 'TABLET') {
-        if ($item['qty_type'] === 'CARTON') {
+      error_log($item->meds_type_id);
+
+      if ($item->meds_type_id === 'TABLET') {
+        if ($item->qty_type === 'CARTON') {
           $sumMultiplier = 1000;
         } else {
           $sumMultiplier = 100;
         }
-      } else if ($item['meds_type_id'] === 'SYRUP') {
-        if ($item['qty_type'] === 'CARTON') {
+      } else if ($item->meds_type_id === 'SYRUP') {
+        if ($item->qty_type === 'CARTON') {
           $sumMultiplier = 100;
         } else {
           $sumMultiplier = 10;
         }
       } else {
-        if ($item['qty_type'] === 'CARTON') {
+        if ($item->qty_type === 'CARTON') {
           $sumMultiplier = 10000;
         } else {
           $sumMultiplier = 1000;
@@ -151,28 +153,28 @@ class ProcurementService
         'meds_type_id' => $item['meds_type_id'],
         'meds_category_id' => $item['meds_category_id'],
         'factory' => $item['factory'],
-        'curr_stock' => $item['qty'] * $sumMultiplier,
-        'min_stock' => $item['qty'] * $sumMultiplier,
+        'curr_stock' => (int) $item['qty'] * $sumMultiplier,
+        'min_stock' => (int) $item['qty'] * $sumMultiplier,
       ]);
     });
 
     $procurement->medicines->each(function($item) {
       $sumMultiplier = 0;
 
-      if ($item['meds_type_id'] === 'TABLET') {
-        if ($item['qty_type'] === 'CARTON') {
+      if ($item->medicine->meds_type_id === 'TABLET') {
+        if ($item->qty_type === 'CARTON') {
           $sumMultiplier = 1000;
         } else {
           $sumMultiplier = 100;
         }
-      } else if ($item['meds_type_id'] === 'SYRUP') {
-        if ($item['qty_type'] === 'CARTON') {
+      } else if ($item->medicine->meds_type_id === 'SYRUP') {
+        if ($item->qty_type === 'CARTON') {
           $sumMultiplier = 100;
         } else {
           $sumMultiplier = 10;
         }
       } else {
-        if ($item['qty_type'] === 'CARTON') {
+        if ($item->qty_type === 'CARTON') {
           $sumMultiplier = 10000;
         } else {
           $sumMultiplier = 1000;
@@ -184,7 +186,7 @@ class ProcurementService
       $oldMedicine = Medicine::with(['meds_type', 'meds_category'])->findOrFail($medicine->id);
 
       $oldMedicine->update([
-        'curr_stock' => ($item['qty'] * $sumMultiplier) + $oldMedicine->curr_stock,
+        'curr_stock' => ((int) $item['qty'] * $sumMultiplier) + $oldMedicine->curr_stock,
       ]);
     });
 

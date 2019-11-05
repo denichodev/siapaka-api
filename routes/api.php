@@ -233,7 +233,23 @@ $router->get('transactions', [
     'middleware' => ['auth:api', 'scopes:read-transaction'],
 ]);
 
+$router->get('transactions/{id}', [
+    'uses' => 'TransactionController@show',
+    'middleware' => ['auth:api', 'scopes:read-transaction'],
+]);
+
+$router->put('transactions/{id}', [
+    'uses' => 'TransactionController@update',
+    'middleware' => ['auth:api', 'scopes:write-transaction'],
+]);
+
 $router->post('transactions', [
     'uses' => 'TransactionController@create',
     'middleware' => ['auth:api', 'scopes:write-transaction'],
+]);
+
+// TransactionMedicines
+$router->delete('transactionmedicines/{id}', [
+    'uses' => 'TransactionMedicineController@destroy',
+    'middleware' => ['auth:api', 'scopes:delete-transaction'],
 ]);

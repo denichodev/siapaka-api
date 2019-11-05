@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Transaction extends Model
 {
   public $incrementing = false;
-  protected $with = ['users', 'customer', 'doctor'];
+  protected $with = ['users', 'customer', 'doctor', 'medicines'];
   protected $table = 'transaction';
 
   protected $fillable = [
@@ -19,6 +19,7 @@ class Transaction extends Model
     'subtotal',
     'tax',
     'pay_amt',
+    'medicines'
   ];
 
   protected $casts = [
@@ -38,5 +39,10 @@ class Transaction extends Model
   public function doctor()
   {
     return $this->belongsTo(Doctor::class);
+  }
+
+  public function medicines()
+  {
+    return $this->hasMany(TransactionMedicine::class);
   }
 }

@@ -23,6 +23,12 @@ class TransactionController extends RestController
         'staffId' => 'required',
     ];
 
+    protected static $updateRule = [
+        'medicines' => 'required',
+        'subtotal' => 'required',
+        'tax' => 'required',
+    ];
+
     public function __construct(TransactionService $service)
     {
         parent::__construct();
@@ -97,26 +103,22 @@ class TransactionController extends RestController
         }
     }
 
-    // public function update(Request $request, $id)
-    // {
-    //     $this->validate($request, self::$rule);
+    public function update(Request $request, $id)
+    {
+        $this->validate($request, self::$updateRule);
 
-    //     try {
-    //         return $this->sendItem($this->service->update($id, [
-    //             'name' => $request->input('name'),
-    //                 'price' => $request->input('price'),
-    //                 'meds_type_id' => $request->input('medsTypeId'),
-    //                 'meds_category_id' => $request->input('medsCategoryId'),
-    //                 'factory' => $request->input('factory'),
-    //                 'curr_stock' => $request->input('currStock'),
-    //                 'min_stock' => $request->input('minStock'),
-    //         ]));
-    //     } catch (ModelNotFoundException $e) {
-    //         return $this->notFoundResponse('Medicine not found');
-    //     } catch (\Exception $e) {
-    //         return $this->iseResponse($e->getMessage());
-    //     }
-    // }
+        try {
+            return $this->sendItem($this->service->update($id, [
+                'medicines' => $request->input('medicines'),
+                'subtotal' => $request->input('subtotal'),
+                'tax' => $request->input('tax'),
+            ]));
+        } catch (ModelNotFoundException $e) {
+            return $this->notFoundResponse('Transaction not found');
+        } catch (\Exception $e) {
+            return $this->iseResponse($e->getMessage());
+        }
+    }
 
     // public function destroy($id)
     // {

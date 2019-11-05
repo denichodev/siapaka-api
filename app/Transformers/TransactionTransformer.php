@@ -12,6 +12,7 @@ class TransactionTransformer extends TransformerAbstract
         'staff',
         'customer',
         'doctor',
+        'medicines',
     ];
 
     public function transform(Transaction $transaction)
@@ -37,6 +38,11 @@ class TransactionTransformer extends TransformerAbstract
     public function includeStaff(Transaction $transaction)
     {
         return $this->item($transaction->users, new UserTransformer);
+    }
+
+    public function includeMedicines(Transaction $transaction)
+    {
+      return $this->collection($transaction->medicines, new TransactionMedicineTransformer);
     }
 
     public function includeDoctor(Transaction $transaction)

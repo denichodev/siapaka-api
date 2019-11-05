@@ -13,17 +13,18 @@ class TransactionService
         return Transaction::with(['users', 'customer', 'doctor'])->get();
     }
 
-    //   public function getMinimal()
-    //   {
-    //     return Medicine::whereRaw('medicine.curr_stock < medicine.min_stock')->get();
-    //   }
-
     public function create(array $data)
     {
         $customer = Customer::firstOrNew([
             'id' => $data['customer_id'],
             'name' => $data['name'],
         ]);
+
+        if ($customer->exists) {
+            // user already exists
+        } else {
+            $customer->save();
+        }
 
         $transaction = Transaction::create([
             'id' => $data['id'],
@@ -51,25 +52,39 @@ class TransactionService
 
     public function find($id)
     {
-        return Transaction::with(['users', 'customer', 'doctor'])->findOrFail($id);
+        return Transaction::with(['users', 'customer', 'doctor', 'medicines', 'medicines.medicine'])->findOrFail($id);
     }
 
-    //   public function update($id, array $data)
-    //   {
-    //       $medicine = $this->find($id);
+    public function update($id, array $data)
+    {
+        $transaction = $this->find($id);
 
-    //       $medicine->update([
-    //         'name' => $data['name'],
-    //         'price' => $data['price'],
-    //         'meds_type_id' => $data['meds_type_id'],
-    //         'meds_category_id' => $data['meds_category_id'],
-    //         'factory' => $data['factory'],
-    //         'curr_stock' => $data['curr_stock'],
-    //         'min_stock' => $data['min_stock'],
-    //       ]);
+        $transaction->update([
+            'subtotal' => $data['subtotal'],
+            'tax' => $data['subtotal']
+        ]);
 
-    //       return $medicine->refresh();
-    //   }
+        foreach ($data['medicines'] as $data) {
+            if (!is_null($data['dbId'])) {
+                $transactionMedicine = TransactionMedicine::findOrFail($data['dbId']);
+
+                $transactionMedicine->update([
+                    'qty' => $data['qty'],
+                    'instructions' => $data['instruction']
+                ]);
+            } else {
+                TransactionMedicine::create([
+                    'qty' => $data['qty'],
+                    'transaction_id' => $id,
+                    'medicine_id' => $data['id'],
+                    'instructions' => $data['instruction']
+                ]);
+            }
+        }
+
+
+        return $transaction->refresh();
+    }
 
     //   public function delete($id)
     //   {
