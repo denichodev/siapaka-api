@@ -49,7 +49,8 @@ class AuthController extends RestController
         $success['token'] = $user->createToken('siapaka-token', [
           'read-supplier',
           'read-doctor',
-          'read-transaction'
+          'read-transaction',
+          'pay-transaction',
         ])->accessToken;
       } else if ($user->role_id == 'APT') {
         $success['token'] = $user->createToken('siapaka-token', [

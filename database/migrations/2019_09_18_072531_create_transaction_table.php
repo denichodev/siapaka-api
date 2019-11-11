@@ -19,6 +19,7 @@ class CreateTransactionTable extends Migration
             $table->string('customer_id');
             $table->unsignedInteger('doctor_id')->nullable();
             $table->dateTime('date');
+            $table->boolean('taken')->default(false);
             $table->decimal('subtotal', 8, 2);
             $table->decimal('tax', 8, 2);
             $table->decimal('pay_amt', 8, 2)->nullable();

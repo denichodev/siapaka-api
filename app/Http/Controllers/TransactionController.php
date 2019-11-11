@@ -29,6 +29,10 @@ class TransactionController extends RestController
         'tax' => 'required',
     ];
 
+    protected static $payRule = [
+        'payAmt' => 'required',
+    ];
+
     public function __construct(TransactionService $service)
     {
         parent::__construct();
@@ -113,6 +117,34 @@ class TransactionController extends RestController
                 'subtotal' => $request->input('subtotal'),
                 'tax' => $request->input('tax'),
             ]));
+        } catch (ModelNotFoundException $e) {
+            return $this->notFoundResponse('Transaction not found');
+        } catch (\Exception $e) {
+            return $this->iseResponse($e->getMessage());
+        }
+    }
+
+    public function pay(Request $request, $id)
+    {
+        $this->validate($request, self::$payRule);
+
+        try {
+            return $this->sendItem($this->service->pay($id, [
+                'pay_amt' => $request->input('payAmt'),
+
+            ]));
+        } catch (ModelNotFoundException $e) {
+            return $this->notFoundResponse('Transaction not found');
+        } catch (\Exception $e) {
+            return $this->iseResponse($e->getMessage());
+        }
+    }
+
+    public function take(Request $request, $id)
+    {
+
+        try {
+            return $this->sendItem($this->service->take($id));
         } catch (ModelNotFoundException $e) {
             return $this->notFoundResponse('Transaction not found');
         } catch (\Exception $e) {

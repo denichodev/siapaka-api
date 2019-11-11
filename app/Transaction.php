@@ -19,11 +19,13 @@ class Transaction extends Model
     'subtotal',
     'tax',
     'pay_amt',
-    'medicines'
+    'medicines',
+    'taken',
   ];
 
   protected $casts = [
     'date' => 'datetime',
+    'taken' => 'boolean'
   ];
 
   public function customer()

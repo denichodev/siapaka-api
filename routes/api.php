@@ -238,6 +238,16 @@ $router->get('transactions/{id}', [
     'middleware' => ['auth:api', 'scopes:read-transaction'],
 ]);
 
+$router->put('transactions/take/{id}', [
+    'uses' => 'TransactionController@take',
+    'middleware' => ['auth:api', 'scopes:write-transaction'],
+]);
+
+$router->put('transactions/pay/{id}', [
+    'uses' => 'TransactionController@pay',
+    'middleware' => ['auth:api', 'scopes:pay-transaction'],
+]);
+
 $router->put('transactions/{id}', [
     'uses' => 'TransactionController@update',
     'middleware' => ['auth:api', 'scopes:write-transaction'],

@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Transaction;
 use App\Customer;
 use App\TransactionMedicine;
+use App\Medicine;
 
 class TransactionService
 {
@@ -82,6 +83,36 @@ class TransactionService
             }
         }
 
+
+        return $transaction->refresh();
+    }
+
+    public function pay($id, array $data)
+    {
+        $transaction = $this->find($id);
+
+        $transaction->update([
+            'pay_amt' => $data['pay_amt'],
+        ]);
+
+        $transaction->medicines->each(function ($item) {
+            $medicine = $item->medicine;
+
+            $medicine->update([
+                'curr_stock' => $medicine->curr_stock - $item->qty
+            ]);
+        });
+
+        return $transaction->refresh();
+    }
+
+    public function take($id)
+    {
+        $transaction = $this->find($id);
+
+        $transaction->update([
+            'taken' => true,
+        ]);
 
         return $transaction->refresh();
     }

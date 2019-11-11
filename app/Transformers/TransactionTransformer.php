@@ -27,6 +27,7 @@ class TransactionTransformer extends TransformerAbstract
             'subtotal' => $transaction->subtotal,
             'tax' => $transaction->tax,
             'payAmt' => $transaction->pay_amt,
+            'taken' => $transaction->taken,
         ];
     }
 
@@ -42,7 +43,7 @@ class TransactionTransformer extends TransformerAbstract
 
     public function includeMedicines(Transaction $transaction)
     {
-      return $this->collection($transaction->medicines, new TransactionMedicineTransformer);
+        return $this->collection($transaction->medicines, new TransactionMedicineTransformer);
     }
 
     public function includeDoctor(Transaction $transaction)
