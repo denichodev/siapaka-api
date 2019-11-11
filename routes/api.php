@@ -263,3 +263,9 @@ $router->delete('transactionmedicines/{id}', [
     'uses' => 'TransactionMedicineController@destroy',
     'middleware' => ['auth:api', 'scopes:delete-transaction'],
 ]);
+
+// Reports
+$router->get('reports/top10meds', [
+    'uses' => 'ReportController@indexTop10Meds',
+    'middleware' => ['auth:api', 'scopes:read-report'],
+]);

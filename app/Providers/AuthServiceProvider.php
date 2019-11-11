@@ -57,6 +57,8 @@ class AuthServiceProvider extends ServiceProvider
             'write-transaction' => 'Write transaction',
             'delete-transaction' => 'Delete transaction',
             'pay-transaction' => 'Delete transaction',
+
+            'read-report' => 'Read report'
         ]);
     }
 }
