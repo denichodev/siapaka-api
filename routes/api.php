@@ -269,3 +269,23 @@ $router->get('reports/top10meds', [
     'uses' => 'ReportController@indexTop10Meds',
     'middleware' => ['auth:api', 'scopes:read-report'],
 ]);
+
+$router->get('reports/top10doctors', [
+    'uses' => 'ReportController@indexTop10Doctors',
+    'middleware' => ['auth:api', 'scopes:read-report'],
+]);
+
+$router->get('reports/monthlymedicine', [
+    'uses' => 'ReportController@indexTopMonthlyMeds',
+    'middleware' => ['auth:api', 'scopes:read-report'],
+]);
+
+$router->get('reports/monthlysales', [
+    'uses' => 'ReportController@monthlySales',
+    'middleware' => ['auth:api', 'scopes:read-report'],
+]);
+
+$router->get('reports/yearlysales', [
+    'uses' => 'ReportController@yearlySales',
+    'middleware' => ['auth:api', 'scopes:read-report'],
+]);
